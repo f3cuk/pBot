@@ -1,0 +1,20 @@
+{
+  "configVersion": "0.0.7",
+  "serverid": "118349957114626057",
+  "ownerid": "108675486946734080",
+  "prefix": ".",
+  "welcomeEnabled": "0",
+  "welcomeChannel": "",
+  "welcomeMessage": "",
+  "welcomeRulesCh": "",
+  "pubgRanksDistribute": true,
+  "selfAssignRoles": [],
+  "overRuleCommands": true,
+  "voiceControl": {
+    "active": false,
+    "channel": "",
+    "method": "",
+    "volume": "0.15"
+  },
+  "voiceQueue": []
+}

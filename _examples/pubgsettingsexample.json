@@ -1,0 +1,35 @@
+{
+  "ranksystem": "none",
+  "ranking": {
+  	"top50rank": "",
+  	"top100rank": "",
+  	"top250rank": "",
+  	"top500rank": "",
+  	"top1000rank": "",
+  	"top2500rank": "",
+  	"top5000rank": "",
+  	"top10000rank": "",
+  	"top25000rank": "",
+  	"unranked": ""
+  },
+  "rating": {
+  	"2400rating": "",
+  	"2200rating": "",
+  	"2000rating": "",
+  	"1800rating": "",
+  	"1600rating": "",
+  	"1400rating": "",
+  	"unranked": ""
+  },
+  "elo": {
+    "4000rating": "",
+    "3600rating": "",
+    "3200rating": "",
+    "2800rating": "",
+    "2400rating": "",
+    "2000rating": "",
+    "1600rating": "",
+    "unranked": ""
+  },
+  "players": []
+}

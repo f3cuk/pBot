@@ -1,0 +1,43 @@
+{
+  "ranksystem": "rating",
+  "ranking": {
+    "top50rank": "",
+    "top100rank": "",
+    "top250rank": "",
+    "top500rank": "",
+    "top1000rank": "",
+    "top2500rank": "",
+    "top5000rank": "",
+    "top10000rank": "",
+    "top25000rank": "",
+    "unranked": ""
+  },
+  "rating": {
+    "2400rating": "397027320881217536",
+    "2200rating": "397027321669877760",
+    "2000rating": "397027322420658187",
+    "1800rating": "397027323704115230",
+    "1600rating": "397027324425404417",
+    "1400rating": "397027325520379904",
+    "unranked": "397027326086348803"
+  },
+  "elo": {
+    "4000rating": "",
+    "3600rating": "",
+    "3200rating": "",
+    "2800rating": "",
+    "2400rating": "",
+    "2000rating": "",
+    "1600rating": "",
+    "unranked": ""
+  },
+  "players": [
+    {
+      "player": {
+        "discordid": "120978498956296194",
+        "pubgname": "PatyYe",
+        "region": "eu"
+      }
+    }
+  ]
+}

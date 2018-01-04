@@ -1,0 +1,12 @@
+{
+	"token": "Mzg2OTU5Njc2NTM5MDExMDg0.DQXhFw.s9Y1cH_M-3YWOAzwi4Zd85lG7gU",
+	"botname": "pBot",
+	"defaultprefix": "&",
+	"mysqlHost": "patyye.me",
+	"mysqlUser": "patyye1q_togahimiko",
+	"mysqlPass": "ktBYjKtG4mawYmXUZ0",
+	"mysqlData": "patyye1q_togahimiko",
+	"inviteLink": "https://discordapp.com/developers/tools/oauth2-url-generator/?client_id=386959676539011084&is_bot=true&require_grant=false",
+	"pubgapikey": "79a41fdc-a09a-42b6-a676-f9c32f0c7bc1",
+	"pubgAutoUpdate": true
+}

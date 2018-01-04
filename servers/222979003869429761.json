@@ -1,0 +1,27 @@
+{
+  "configVersion": "0.0.7",
+  "serverid": "222979003869429761",
+  "ownerid": "222922552031313921",
+  "prefix": "!",
+  "welcomeEnabled": "0",
+  "welcomeChannel": "",
+  "welcomeMessage": "",
+  "welcomeRulesCh": "",
+  "pubgRanksDistribute": true,
+  "selfAssignRoles": [
+    {
+      "role": {
+        "roleid": "384669460692336641",
+        "shortname": "nsfw"
+      }
+    }
+  ],
+  "overRuleCommands": true,
+  "voiceControl": {
+    "active": true,
+    "channel": "222979004406169600",
+    "method": "listenmoe",
+    "volume": "0.15"
+  },
+  "voiceQueue": []
+}
