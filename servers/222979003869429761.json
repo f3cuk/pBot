@@ -18,9 +18,9 @@
   ],
   "overRuleCommands": true,
   "voiceControl": {
-    "active": true,
-    "channel": "222979004406169600",
-    "method": "listenmoe",
+    "active": false,
+    "channel": "",
+    "method": "",
     "volume": "0.15"
   },
   "voiceQueue": []

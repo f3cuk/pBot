@@ -1,16 +1,16 @@
 {
-  "ranksystem": "ranking",
+  "ranksystem": "elo",
   "ranking": {
-    "top50rank": "387325175424876545",
-    "top100rank": "387326657091993601",
-    "top250rank": "387326665673539595",
-    "top500rank": "387326667942658048",
-    "top1000rank": "387326668785582092",
-    "top2500rank": "387326669981089815",
-    "top5000rank": "387326671361015808",
-    "top10000rank": "387326672162127873",
-    "top25000rank": "387326673051451415",
-    "unranked": "387326673965547529"
+    "top50rank": "",
+    "top100rank": "",
+    "top250rank": "",
+    "top500rank": "",
+    "top1000rank": "",
+    "top2500rank": "",
+    "top5000rank": "",
+    "top10000rank": "",
+    "top25000rank": "",
+    "unranked": ""
   },
   "rating": {
     "2400rating": "",
@@ -22,14 +22,14 @@
     "unranked": ""
   },
   "elo": {
-    "4000rating": "",
-    "3600rating": "",
-    "3200rating": "",
-    "2800rating": "",
-    "2400rating": "",
-    "2000rating": "",
-    "1600rating": "",
-    "unranked": ""
+    "4000rating": "397082526549803010",
+    "3600rating": "397082527514230784",
+    "3200rating": "397082528269467669",
+    "2800rating": "397082529170980874",
+    "2400rating": "397082529653587970",
+    "2000rating": "397082530831925248",
+    "1600rating": "397082531679305739",
+    "unranked": "397082532581212161"
   },
   "players": [
     {
@@ -280,7 +280,7 @@
     {
       "player": {
         "discordid": "168449372391079937",
-        "pubgname": "st1dge",
+        "pubgname": "<@168449372391079937>",
         "region": "eu"
       }
     },
@@ -504,7 +504,7 @@
     {
       "player": {
         "discordid": "329218009841401856",
-        "pubgname": "Stressfest",
+        "pubgname": "Kaybe",
         "region": "eu"
       }
     },
@@ -680,6 +680,153 @@
       "player": {
         "discordid": "326418020417142785",
         "pubgname": "0570_LR",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "219505815382523904",
+        "pubgname": "Masuyo",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "150950870354231297",
+        "pubgname": "IStealthy",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "207869059495231490",
+        "pubgname": "inseh",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "338045026477015041",
+        "pubgname": "FliPmOdE667",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "113726082670264327",
+        "pubgname": "GD_NL",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "331515627300847617",
+        "pubgname": "kaybe",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "270691828150304768",
+        "pubgname": "RoyalMess",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "300938527670272021",
+        "pubgname": "DexterM82",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "354687815600046080",
+        "pubgname": "lukkyloen",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "212944746052714496",
+        "pubgname": "Ydereen",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "217560395244634112",
+        "pubgname": "StefanJ",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "274127981100793857",
+        "pubgname": "Sjorsa",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "263685400630001664",
+        "pubgname": "Prime01",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "164394502969229312",
+        "pubgname": "Duxez",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "328551263291703306",
+        "pubgname": "Tripleflix",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "369119062577512448",
+        "pubgname": "PEEcMON",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "112993669983834112",
+        "pubgname": "OxBrK",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "338748620515966976",
+        "pubgname": "Gildoo",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "241568154340294658",
+        "pubgname": "Brandalarm",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "260124810615455746",
+        "pubgname": "Flou",
+        "region": "eu"
+      }
+    },
+    {
+      "player": {
+        "discordid": "320946759297794049",
+        "pubgname": "Borstol",
         "region": "eu"
       }
     }
