@@ -3,7 +3,7 @@ module.exports.run = async (bot, message, args) => {
 		if (bot.servers.get(message.guild.id).prefix !== args[0]) {
 			const mysql       = require('mysql');
 			var fs = require('fs');
-			var filename = `/home/pBot/servers/${message.guild.id}.json`;
+			var filename = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/${message.guild.id}.json`;
 			var props = require(filename);
 			props.prefix = args[0];
 			fs.writeFile(filename, JSON.stringify(props, null, 2), function (err) {

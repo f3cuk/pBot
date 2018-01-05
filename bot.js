@@ -40,7 +40,7 @@ function loadCommands() {
 	if (bot.commands.length >= 1) {
 		bot.commands.deleteAll();
 	}
-	recursive('/home/pBot/commands/', (err, files) => {
+	recursive('/var/www/vhosts/bot.discordgaming.nl/home/pBot/commands/', (err, files) => {
 		if (err) console.error(err);
 
 		let jsfiles = files.filter(f => f.split(".").pop() === "js");
@@ -63,7 +63,7 @@ function loadServers() {
 	if (bot.servers.length >= 1) {
 		bot.servers.deleteAll();
 	}
-	fs.readdir('/home/pBot/servers/', (err, files) => {
+	fs.readdir('/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/', (err, files) => {
 		if (err) console.error(err);
 
 		let jsfiles = files.filter(f => f.split(".").pop() === "json");
@@ -74,7 +74,7 @@ function loadServers() {
 
 		const expFile = require(`./_examples/serverexample.json`);
 		jsfiles.forEach((f, i) => {
-			let props = require(`/home/pBot/servers/${f}`);
+			let props = require(`/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/${f}`);
 
 			//Checking if the server has the latest configuration file.
 			//If not call the extend function to combine the 2 files. Keeping all the data from the old one.
@@ -83,7 +83,7 @@ function loadServers() {
 				//Setting the new config version for the file. Otherwise this will be executed on every boot.
 				props.configVersion = expFile.configVersion;
 				//Write the new file.
-				fs.writeFile(`/home/pBot/servers/${f}`, JSON.stringify(props, null, 2), function (err) {
+				fs.writeFile(`/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/${f}`, JSON.stringify(props, null, 2), function (err) {
 					if (err) return console.error(err);
 				});
 			}
@@ -161,7 +161,7 @@ bot.on("ready", async () => {
 						if (server.voiceQueue.length > 1) {
 							const newsong = server.voiceQueue[1].song.url;
 							server.voiceQueue.slice(1);
-							fs.writeFile(`/home/pBot/servers/${server.serverid}.json`, JSON.stringify(server, null, 2), function (err) {
+							fs.writeFile(`/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/${server.serverid}.json`, JSON.stringify(server, null, 2), function (err) {
 								if (err) return console.error(err);
 							});
 							const stream = ytdl(newsong, {filter: 'audioonly'});
@@ -200,8 +200,8 @@ bot.on("guildCreate", guild => {
 	console.log(`I have been added to: ${guild.name} (id: ${guild.id})`);
 
 	//Creating a new JSON for the server
-	var examplefile = `/home/pBot/_examples/serverexample.json`;
-	var targetfile  = `/home/pBot/servers/${guild.id}.json`;
+	var examplefile = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/_examples/serverexample.json`;
+	var targetfile  = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/${guild.id}.json`;
 	var props = require(examplefile);
 	props.serverid = guild.id;
 	props.ownerid  = guild.ownerID;
@@ -212,9 +212,9 @@ bot.on("guildCreate", guild => {
 	});
 
 	//Inserting PUBG files on new guild join.
-	var pubgfile = `/home/pBot/_examples/pubgsettingsexample.json`;
+	var pubgfile = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/_examples/pubgsettingsexample.json`;
 	var pubgsett = require(pubgfile);
-	fs.writeFile(`/home/pBot/settings/pubg/${guild.id}.json`, JSON.stringify(props, null, 2), function (err) {
+	fs.writeFile(`/var/www/vhosts/bot.discordgaming.nl/home/pBot/settings/pubg/${guild.id}.json`, JSON.stringify(props, null, 2), function (err) {
 		if (err) return console.error(err);
 	});
 

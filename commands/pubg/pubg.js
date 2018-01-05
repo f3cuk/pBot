@@ -185,7 +185,7 @@ module.exports.run = async (bot, message, args) => {
 			// var gd = require('node-gd');
 
 			// // Create blank new image in memory
-			// await gd.openFile('/home/TokaHimiko/_examples/pubg_img.png', function(err, img) {
+			// await gd.openFile('/var/www/vhosts/bot.discordgaming.nl/home/TokaHimiko/_examples/pubg_img.png', function(err, img) {
 			// 	if (err) {
 			// 		throw err;
 			// 	}
@@ -193,8 +193,8 @@ module.exports.run = async (bot, message, args) => {
 			// 	var txtWhite = img.colorAllocate(255, 255, 255);
 			// 	var txtOrang = img.colorAllocate(255, 153, 0);
 
-			// 	var fontPathBig = '/home/TokaHimiko/fonts/teko.medium.ttf';
-			// 	var fontPathSma = '/home/TokaHimiko/fonts/teko.light.ttf';
+			// 	var fontPathBig = '/var/www/vhosts/bot.discordgaming.nl/home/TokaHimiko/fonts/teko.medium.ttf';
+			// 	var fontPathSma = '/var/www/vhosts/bot.discordgaming.nl/home/TokaHimiko/fonts/teko.light.ttf';
 
 			// 	//Userinfo
 			// 	var regionmode = (finalRegion.toUpperCase() + " - " + finalMode.toUpperCase());
@@ -226,7 +226,7 @@ module.exports.run = async (bot, message, args) => {
 			// 	img.stringFT(txtWhite, fontPathSma, 22, 0, 434, 278, playtime);
 
 
-			// 	img.saveFile('/home/TokaHimiko/images/output.png', function(err) {
+			// 	img.saveFile('/var/www/vhosts/bot.discordgaming.nl/home/TokaHimiko/images/output.png', function(err) {
 			// 		img.destroy();
 			// 		if (err) {
 			// 			throw err;
@@ -236,7 +236,7 @@ module.exports.run = async (bot, message, args) => {
 
 			// await message.channel.send({files: [
 			// 	{
-			// 		attachment: '/home/TokaHimiko/images/output.png',
+			// 		attachment: '/var/www/vhosts/bot.discordgaming.nl/home/TokaHimiko/images/output.png',
 			// 		name: "output.png"
 			// 	}
 			// ]});

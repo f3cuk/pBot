@@ -2,7 +2,7 @@ module.exports.run = async (bot, message, args) => {
 	const dispatcher = await message.guild.voiceConnection;
 	if (dispatcher) {
 		var fs = require('fs');
-		var filename = `/home/pBot/servers/${message.guild.id}.json`;
+		var filename = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/${message.guild.id}.json`;
 		var props = require(filename);
 
 		props.voiceControl.active = false;

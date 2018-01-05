@@ -1,6 +1,6 @@
 module.exports.run = async (bot, message, args) => {
 	var fs = require('fs');
-	var filename = `/home/pBot/servers/pubg/${message.guild.id}.json`;
+	var filename = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/pubg/${message.guild.id}.json`;
 	var props = require(filename);
 
 	if (args[0] === "ranksystem") {
@@ -58,7 +58,7 @@ module.exports.run = async (bot, message, args) => {
 		if (props.ranksystem === "none") {
 			message.reply(`The server does not have a rank system. So I cannot enable distribution.`);
 		} else {
-			var serverfile = `/home/pBot/servers/${message.guild.id}.json`;
+			var serverfile = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/${message.guild.id}.json`;
 			var serversettings = require(serverfile);
 			serversettings.pubgRanksDistribute = true;
 			bot.servers.set(message.guild.id, serversettings);
@@ -69,7 +69,7 @@ module.exports.run = async (bot, message, args) => {
 			message.channel.send("I've enabled rank distribution for the rankings you've assigned.");
 		}
 	} else if (args[0] === "disableRanks") {
-		var serverfile = `/home/pBot/servers/${message.guild.id}.json`;
+		var serverfile = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/${message.guild.id}.json`;
 		var serversettings = require(serverfile);
 		serversettings.pubgRanksDistribute = false;
 		bot.servers.set(message.guild.id, serversettings);

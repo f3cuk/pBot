@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) => {
 		if (bot.servers.get(message.guild.id).pubgRanksDistribute) {
 			//Get the configuration file for the servers PUBGsettings
 			var fs = require('fs');
-			var filename = `/home/pBot/servers/pubg/${message.guild.id}.json`;
+			var filename = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/pubg/${message.guild.id}.json`;
 			var pubgsettings = require(filename);
 
 			var isLinked = true;

@@ -1,7 +1,7 @@
 module.exports.run = async (bot, message, args) => {
 	if (message.member.voiceChannel) {
 		var fs = require('fs');
-		var filename = `/home/pBot/servers/${message.guild.id}.json`;
+		var filename = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/${message.guild.id}.json`;
 		var props = require(filename);
 
 		message.member.voiceChannel.join()

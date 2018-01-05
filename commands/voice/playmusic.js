@@ -3,7 +3,7 @@ module.exports.run = async (bot, message, args) => {
 	const streamOptions = { seek: 0, volume: 0.15, passes: 2 }; //Volume to not RIP headphone users.
 	if (args.length >= 1 && dispatcher) {
 		var fs = require('fs');
-		var filename = `/home/pBot/servers/${message.guild.id}.json`;
+		var filename = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/${message.guild.id}.json`;
 		var props = require(filename);
 		var changes = false;
 		if (args[0] === "moe" || args[0] === "listenmoe") {

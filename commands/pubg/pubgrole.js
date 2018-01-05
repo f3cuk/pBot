@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) => {
 		}
 
 		var fs = require('fs');
-		var filename = `/home/pBot/servers/pubg/${message.guild.id}.json`;
+		var filename = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/pubg/${message.guild.id}.json`;
 		var pubgsettings = require(filename);
 		if (pubgsettings.ranksystem === "rating") {
 			con.query(`SELECT * FROM pubgranks WHERE discorduser = ${playertofind} AND discordserver = ${message.guild.id}`, async (err, rows) => {

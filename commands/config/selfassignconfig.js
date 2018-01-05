@@ -1,7 +1,7 @@
 module.exports.run = async (bot, message, args) => {
 	let prefix = bot.servers.get(message.guild.id).prefix;
 	var fs = require('fs');
-	var filename = `/home/pBot/servers/${message.guild.id}.json`;
+	var filename = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/${message.guild.id}.json`;
 	var props = require(filename);
 	if (args.length == 2) {
 		
