@@ -86,92 +86,96 @@ module.exports.run = async (bot, message, args) => {
 		} else if (pubgsettings.ranksystem === "ranking") {
 			//message.reply(``);
 		} else if (pubgsettings.ranksystem === "elo") {
+
 			con.query(`SELECT * FROM pubgranks WHERE discorduser = ${playertofind} AND discordserver = ${message.guild.id}`, async (err, rows) => {
 				if (err) console.error(err);
 
-				var playerinfo = rows[0];
-				var p = playerinfo;
-				var elosquadtpp = 1;
-				var elosquadfpp = 1;
-
-				//SQUAD TPP rating
-				await api.getProfileByID(playerinfo["op_gg_id"], SEASON.RE2018sea1, REGION.EU, MATCH.SQUAD.size, MATCH.SQUAD.name)
-					.then((profile) => {
-						const stats = profile.getStats();
-						if (stats.matches_cnt >= 10) {
-							var winrating = (stats.win_matches_cnt / stats.matches_cnt) * 100;
-						  	var kda       = (stats.kills_sum + stats.assists_sum) / stats.deaths_sum;
-							elosquadtpp = (1000 * (1+((winrating*2)/100)) *  (1+((kda/2)/100)) * (1 + (stats.damage_dealt_avg/2)/100));
-						}
-					})
-					.catch((err) => {
-						// console.error(err);
-					});
-				//SQUAD FPP rating
-				await api.getProfileByID(playerinfo["op_gg_id"], SEASON.RE2018sea1, REGION.EU, MATCH.SQUADFPP.size, MATCH.SQUADFPP.name)
-					.then((profile) => {
-						const stats = profile.getStats();
-						if (stats.matches_cnt >= 10) {
-							var winrating = (stats.win_matches_cnt / stats.matches_cnt) * 100;
-						  	var kda       = (stats.kills_sum + stats.assists_sum) / stats.deaths_sum;
-							elosquadfpp = (1000 * (1+((winrating*2)/100)) *  (1+((kda/2)/100)) * (1 + (stats.damage_dealt_avg/2)/100));
-						}
-					})
-					.catch((err) => {
-						// console.error(err);
-					});
-
-				//Final vars
-				var bestelo;
-				var bestmode;
-				if (elosquadfpp > elosquadtpp) {
-					bestelo = Math.ceil(elosquadfpp);
-					bestmode = 'squad-fpp';
+				if(rows.length == 0) {
+					message.reply('Your account has not been linked yet, use .pubgaccount [ingame name] to link your account.');
 				} else {
-					bestelo = Math.ceil(elosquadtpp);
-					bestmode = 'squad';
-				}
+					var playerinfo = rows[0];
+					var p = playerinfo;
+					var elosquadtpp = 1;
+					var elosquadfpp = 1;
 
-				con.query(`UPDATE pubgranks SET currentRank = "${bestelo}", currentMode = "${bestmode}", previousRank = "${p.currentRank}", previousMode = "${p.currentMode}", updatetime = CURRENT_TIMESTAMP WHERE discordserver = "${p.discordserver}" AND discorduser = "${p.discorduser}"`, (err, rows) => {
-					if (err) console.error(err);
-					con.end();
-				});
+					//SQUAD TPP rating
+					await api.getProfileByID(playerinfo["op_gg_id"], SEASON.RE2018sea1, REGION.EU, MATCH.SQUAD.size, MATCH.SQUAD.name)
+						.then((profile) => {
+							const stats = profile.getStats();
+							if (stats.matches_cnt >= 10) {
+								var winrating = (stats.win_matches_cnt / stats.matches_cnt) * 100;
+							  	var kda       = (stats.kills_sum + stats.assists_sum) / stats.deaths_sum;
+								elosquadtpp = (1000 * (1+((winrating*2)/100)) *  (1+((kda/2)/100)) * (1 + (stats.damage_dealt_avg/2)/100));
+							}
+						})
+						.catch((err) => {
+							// console.error(err);
+						});
+					//SQUAD FPP rating
+					await api.getProfileByID(playerinfo["op_gg_id"], SEASON.RE2018sea1, REGION.EU, MATCH.SQUADFPP.size, MATCH.SQUADFPP.name)
+						.then((profile) => {
+							const stats = profile.getStats();
+							if (stats.matches_cnt >= 10) {
+								var winrating = (stats.win_matches_cnt / stats.matches_cnt) * 100;
+							  	var kda       = (stats.kills_sum + stats.assists_sum) / stats.deaths_sum;
+								elosquadfpp = (1000 * (1+((winrating*2)/100)) *  (1+((kda/2)/100)) * (1 + (stats.damage_dealt_avg/2)/100));
+							}
+						})
+						.catch((err) => {
+							// console.error(err);
+						});
 
-				//Updating the player rank in the server.
-				//Removing the roles from the member first... :)
-				let guildMember = await message.guild.fetchMember(playertofind);
-				for(var attributename in pubgsettings["elo"]){
-					await guildMember.removeRole(pubgsettings["elo"][attributename]);
-				}
-				//Assinging the new role to the user.
-				if (bestelo < 1600) {
-					guildMember.addRole(pubgsettings["elo"]["unranked"]);
-				} else if (bestelo >= 1600 && bestelo < 2000) {
-					guildMember.addRole(pubgsettings["elo"]["1600rating"]);
-				} else if (bestelo >= 2000 && bestelo < 2400) {
-					guildMember.addRole(pubgsettings["elo"]["2000rating"]);
-				} else if (bestelo >= 2400 && bestelo < 2800) {
-					guildMember.addRole(pubgsettings["elo"]["2400rating"]);
-				} else if (bestelo >= 2800 && bestelo < 3200) {
-					guildMember.addRole(pubgsettings["elo"]["2800rating"]);
-				} else if (bestelo >= 3200 && bestelo < 3600) {
-					guildMember.addRole(pubgsettings["elo"]["3200rating"]);
-				} else if (bestelo >= 3600 && bestelo < 4000) {
-					guildMember.addRole(pubgsettings["elo"]["3600rating"]);
-				} else if (bestelo >= 4000) {
-					guildMember.addRole(pubgsettings["elo"]["4000rating"]);
-				}
+					//Final vars
+					var bestelo;
+					var bestmode;
+					if (elosquadfpp > elosquadtpp) {
+						bestelo = Math.ceil(elosquadfpp);
+						bestmode = 'squad-fpp';
+					} else {
+						bestelo = Math.ceil(elosquadtpp);
+						bestmode = 'squad';
+					}
 
-				//Ranked player or not.?
-				if (bestelo == 1) {
-					message.reply(`I've not assigned an elo role to ${guildMember}. Player has not ranked yet, 10+ games to get ranked`);
-				} else {
-					message.reply(`I've assigned the new elo role to ${guildMember}. ELO: ${bestelo}`);
+					con.query(`UPDATE pubgranks SET currentRank = "${bestelo}", currentMode = "${bestmode}", previousRank = "${p.currentRank}", previousMode = "${p.currentMode}", updatetime = CURRENT_TIMESTAMP WHERE discordserver = "${p.discordserver}" AND discorduser = "${p.discorduser}"`, (err, rows) => {
+						if (err) console.error(err);
+						con.end();
+					});
+
+					//Updating the player rank in the server.
+					//Removing the roles from the member first... :)
+					let guildMember = await message.guild.fetchMember(playertofind);
+					for(var attributename in pubgsettings["elo"]){
+						await guildMember.removeRole(pubgsettings["elo"][attributename]);
+					}
+					//Assinging the new role to the user.
+					if (bestelo < 1600) {
+						guildMember.addRole(pubgsettings["elo"]["unranked"]);
+					} else if (bestelo >= 1600 && bestelo < 2000) {
+						guildMember.addRole(pubgsettings["elo"]["1600rating"]);
+					} else if (bestelo >= 2000 && bestelo < 2400) {
+						guildMember.addRole(pubgsettings["elo"]["2000rating"]);
+					} else if (bestelo >= 2400 && bestelo < 2800) {
+						guildMember.addRole(pubgsettings["elo"]["2400rating"]);
+					} else if (bestelo >= 2800 && bestelo < 3200) {
+						guildMember.addRole(pubgsettings["elo"]["2800rating"]);
+					} else if (bestelo >= 3200 && bestelo < 3600) {
+						guildMember.addRole(pubgsettings["elo"]["3200rating"]);
+					} else if (bestelo >= 3600 && bestelo < 4000) {
+						guildMember.addRole(pubgsettings["elo"]["3600rating"]);
+					} else if (bestelo >= 4000) {
+						guildMember.addRole(pubgsettings["elo"]["4000rating"]);
+					}
+
+					//Ranked player or not.?
+					if (bestelo == 1) {
+						message.reply(`I've not assigned an elo role to ${guildMember}. Player has not ranked yet, 10+ games to get ranked`);
+					} else {
+						message.reply(`I've assigned the new elo role to ${guildMember}. ELO: ${bestelo}`);
+					}
+
 				}
 			});
 
-		} else {
-			message.reply('Your account has not been linked yet, use .pubgaccount [ingame name] to link your account.');
 		}
 
 	} else {

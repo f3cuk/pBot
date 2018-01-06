@@ -17,26 +17,24 @@ module.exports.commandinfo = async (bot, message, args) => {
   let prefix = bot.servers.get(message.guild.id).prefix;
   var embed = {
     embed: {
-      "title": "Help command for purge",
-      "description": "Used for deleting up to 100 messages at once.",
-      "fields": [
-      {
-        "name": "Usage: " + prefix + "purge <amount>",
-        "value": "Insert the amount of messages you want to remove. For example using " + prefix + "purge 10, will remove the 9 messages above + your purge command.",
-        "inline": false
-      }
-      ],
-      "color": 3485
-      }
+			"title": "Help command for purge",
+			"description": "Used for deleting up to 100 messages at once.",
+			"fields": [{
+				"name": "Usage: " + prefix + "purge <amount>",
+				"value": "Insert the amount of messages you want to remove. For example using " + prefix + "purge 10, will remove the 9 messages above + your purge command.",
+				"inline": false
+			}],
+			"color": 3485
+		}
   }
   return embed;
 }
 
 module.exports.help = {
 	name: "purge",
-  alias: "",
+	alias: "",
 	permission: "MANAGE_MESSAGES",
-  category: "utils",
-  helpcommand: true,
-  devcommand: false
+	category: "utils",
+	helpcommand: true,
+	devcommand: false
 }

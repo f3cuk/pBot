@@ -21,9 +21,11 @@ const opggapi = require("pubg.op.gg");
 	var pubgsettings = require(filename);
 	if (pubgsettings.ranksystem === "elo") {
 			con.query(`SELECT * FROM pubgranks WHERE discordserver = ${message.guild.id}`, async (err, rows) => {
+			
+			let awaitmessage = await message.reply(`I'm currently updating all the ranks for the ${rows.length} users in the server.`);
+			
 			rows.forEach(async (p, i) => {
 				//Getting the stats
-				let awaitmessage = await message.reply(`I'm currently updating all the ranks for the ${rows.length} users in the server.`);
 				setTimeout(async function() {
 					var playerinfo = p;
 					var playertofind = p.discorduser;

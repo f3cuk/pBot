@@ -79,7 +79,6 @@ module.exports.run = async (bot, message, args) => {
 
 		message.channel.send("I've disabled rank distribution.");
 	}
-	
 
 	//Write the new config file for PUBGsettings
 	fs.writeFile(filename, JSON.stringify(props, null, 2), function (err) {
@@ -115,69 +114,3 @@ module.exports.help = {
 	helpcommand: false,
 	devcommand: false
 }
-
-//Usage:
-// name: = command name, for example "help"
-// permission: = level of permission, insert one of the flags: https://discord.js.org/#/docs/main/stable/class/Permissions?scrollTo=s-FLAGS
-// category: category of the command
-// helpcommand: if there is an help command available
-
-
-//Legacy Code
-/*
-if (props.ranksystem === "ranking") {
-	/* Supported ranks (JSON format), when needed more we'll have to manually add them.
-		"top50rank": "",
-	  	"top100rank": "",
-	  	"top250rank": "",
-	  	"top500rank": "",
-	  	"top1000rank": "",
-	  	"top2500rank": "",
-	  	"top5000rank": "",
-	  	"top10000rank": "",
-	  	"top25000rank": "",
-	  	"unranked": ""
-	*/
-	/*
-	switch (args[0]) {
-		case "50":
-			props.ranking.top50rank = message.mentions.roles.first().id;
-			break;
-		case "100":
-			props.ranking.top100rank = message.mentions.roles.first().id;
-			break;
-		case "250":
-			props.ranking.top250rank = message.mentions.roles.first().id;
-			break;
-		case "500":
-			props.ranking.top500rank = message.mentions.roles.first().id;
-			break;
-		case "1000":
-			props.ranking.top1000rank = message.mentions.roles.first().id;
-			break;
-		case "2500":
-			props.ranking.top2500rank = message.mentions.roles.first().id;
-			break;
-		case "5000":
-			props.ranking.top5000rank = message.mentions.roles.first().id;
-			break;
-		case "10000":
-			props.ranking.top10000rank = message.mentions.roles.first().id;
-			break;
-		case "25000":
-			props.ranking.top25000rank = message.mentions.roles.first().id;
-			break;
-		case "unranked":
-			props.ranking.unranked = message.mentions.roles.first().id;
-			break;
-		default: 
-			message.channel.send(`I'm not able to give a special rank to ${args[0]}, as there is not yet support for.`);
-			return;
-			break;
-	}
-	message.channel.send(`I've changed the ${args[0]} rank to ${message.mentions.roles.first()}.`);
-}
-else if (props.ranksystem === "rating") {
-	//DO NOTHING AT THE MOMENT
-}
-*/
