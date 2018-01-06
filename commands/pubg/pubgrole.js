@@ -169,9 +169,10 @@ module.exports.run = async (bot, message, args) => {
 					message.reply(`I've assigned the new elo role to ${guildMember}. ELO: ${bestelo}`);
 				}
 			});
+
+		} else {
+			message.reply('Your account has not been linked yet, use .pubgaccount [ingame name] to link your account.');
 		}
-
-
 
 	} else {
 		if (!enabled) {

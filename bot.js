@@ -1,14 +1,14 @@
 const BotSettings = require('./botsettings.json');
 const Discord     = require('discord.js');
 const mysql       = require('mysql');
-const fs 		  = require("fs");
+const fs          = require("fs");
 const recursive   = require("recursive-readdir");
-const ytdl 		  = require('ytdl-core');
+const ytdl        = require('ytdl-core');
 
-const bot 	 	  = new Discord.Client({disableEveryone: true});
-bot.commands 	  = new Discord.Collection();
-bot.servers  	  = new Discord.Collection();
-bot.settingscfg	  = BotSettings;
+const bot         = new Discord.Client({disableEveryone: true});
+bot.commands      = new Discord.Collection();
+bot.servers       = new Discord.Collection();
+bot.settingscfg   = BotSettings;
 
 //load mysql
 var con = mysql.createConnection({
@@ -27,13 +27,13 @@ con.connect(err => {
 /* BOT METHODS */
 //Extend JSON objects into each other. Used for configuration merge.
 function extend(target) {
-    var sources = [].slice.call(arguments, 1);
-    sources.forEach(function (source) {
-        for (var prop in source) {
-            target[prop] = source[prop];
-        }
-    });
-    return target;
+	var sources = [].slice.call(arguments, 1);
+	sources.forEach(function (source) {
+		for (var prop in source) {
+			target[prop] = source[prop];
+		}
+	});
+	return target;
 }
 //Load commands & serers into the bot.
 function loadCommands() {
@@ -105,74 +105,32 @@ bot.on("ready", async () => {
 	
 	// //Auto Update function for PUBG, special function!
 	// setInterval(async function() {
-	// 	var server  = "118349957114626057";
-	// 	var kanaal = "160338178115502080";
-	// 	con.query(`SELECT * FROM servers WHERE serverid = "${server}"`, async (err, rows) => {
-	// 		if (err) console.error(err);
-	// 		var lastRunTime = rows[0]["pubg_massupdate"];
-	// 		// The selected timestamp, using a dummy value here.
-	// 		var d = new Date(lastRunTime); 
-	// 		var ms = d.getTime();
-	// 		var n = Date.now();
-	// 		var nd = (n - ms);
-	// 		//3 minutes
-	// 		if (nd >= 21600000) {
-	// 			let cmd = await bot.commands.get("pubgmassupdate");
-	// 			let guild = await bot.guilds.find("id", server);
-	// 			let channel = await guild.channels.find("id", kanaal);
-	// 			cmd.cron(bot, guild, channel);
+	//  var server  = "118349957114626057";
+	//  var kanaal = "160338178115502080";
+	//  con.query(`SELECT * FROM servers WHERE serverid = "${server}"`, async (err, rows) => {
+	//      if (err) console.error(err);
+	//      var lastRunTime = rows[0]["pubg_massupdate"];
+	//      // The selected timestamp, using a dummy value here.
+	//      var d = new Date(lastRunTime); 
+	//      var ms = d.getTime();
+	//      var n = Date.now();
+	//      var nd = (n - ms);
+	//      //3 minutes
+	//      if (nd >= 21600000) {
+	//          let cmd = await bot.commands.get("pubgmassupdate");
+	//          let guild = await bot.guilds.find("id", server);
+	//          let channel = await guild.channels.find("id", kanaal);
+	//          cmd.cron(bot, guild, channel);
 
-	// 			//Set new update time in DB.
-	// 			con.query(`UPDATE servers SET pubg_massupdate = CURRENT_TIMESTAMP WHERE serverid = "${server}"`, (err, rows) => {
-	// 				if (err) throw err;
-	// 			});
-	// 		}
-	// 	});
+	//          //Set new update time in DB.
+	//          con.query(`UPDATE servers SET pubg_massupdate = CURRENT_TIMESTAMP WHERE serverid = "${server}"`, (err, rows) => {
+	//              if (err) throw err;
+	//          });
+	//      }
+	//  });
 	// }, 900000);
 
-	//Load previous voice channels on bot restart
-	bot.servers.forEach(async (server, i) => {
-		const streamOptions = { seek: 0, volume: server.voiceControl.volume, passes: 2 };
-		if (server.voiceControl.active) {
-			await bot.channels.get(server.voiceControl.channel).join()
-				.then(connection => {
-					if (server.voiceControl.method === "listenmoe") {
-						connection.playStream('https://listen.moe/stream', streamOptions);
-					} else if (server.voiceControl.method === "youtube" && server.voiceQueue.length >= 1) {
-						// console.log(server.voiceQueue[0]);
-						const stream = ytdl(server.voiceQueue[0].song.url, {filter: 'audioonly'});
-						connection.playStream(stream, streamOptions);
-					}
-				})
-				.catch(`I've ran into an error: ${console.error}`);
-		}
-	});
-
-	//Youtube Queue check.
-	setInterval(async function() {
-		bot.servers.forEach(async (server, i) => {
-			if (server.voiceControl.active && server.voiceControl.method === "youtube") {
-				//Get the voiceChannel
-				let connection = await bot.channels.get(server.voiceControl.channel).connection;
-				const streamOptions = { seek: 0, volume: server.voiceControl.volume, passes: 2 };
-				if (connection && server.voiceQueue.length != 0) {
-					connection.dispatcher.on('end', async () => {
-						//If not speaking, song is finished.
-						if (server.voiceQueue.length > 1) {
-							const newsong = server.voiceQueue[1].song.url;
-							server.voiceQueue.slice(1);
-							fs.writeFile(`/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/${server.serverid}.json`, JSON.stringify(server, null, 2), function (err) {
-								if (err) return console.error(err);
-							});
-							const stream = ytdl(newsong, {filter: 'audioonly'});
-							bot.channels.get(server.voiceControl.channel).connection.playStream(stream, streamOptions);
-						}
-					});
-					
-				}
-			}
-		});
-	}, 400);
+	/*
 
 	//Bot Game State
 	var gameState = 0; //Default state
@@ -193,6 +151,9 @@ bot.on("ready", async () => {
 				break;
 		}
 	}, 150000);
+
+	*/
+
 });
 
 //When the bot joins a guild.
@@ -306,3 +267,12 @@ bot.on("message", async message => {
 
 //Start the bot
 bot.login(BotSettings.token); //Discord
+
+const http = require('http');
+
+http.createServer(function(request, response) {
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+  response.end("Hello, World!\n");
+}).listen(process.env.PORT);
+
+console.log('App is running...');
