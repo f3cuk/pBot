@@ -2,7 +2,8 @@ module.exports.run = async (bot, message, args) => {
 const opggapi = require("pubg.op.gg");
 	const {PubgAPI, PubgAPIErrors, REGION, SEASON, MATCH} = require('pubg.op.gg');
 	const api = new PubgAPI();
-	const mysql   = require('mysql');
+	const mysql = require('mysql');
+	const curseason = bot.settingscfg.curseason;
 
 	var enabled = true; //Developer enabled.
 	var con = mysql.createConnection({
@@ -34,7 +35,7 @@ const opggapi = require("pubg.op.gg");
 					
 					awaitmessage.edit(`${message.author}, I'm currently updating all the ranks for the ${rows.length} users in the server.\nUpdating: ${playerinfo.pubgname}`);
 					//SQUAD TPP rating
-					await api.getProfileByID(playerinfo["op_gg_id"], SEASON.curseason, REGION.EU, MATCH.SQUAD.size, MATCH.SQUAD.name)
+					await api.getProfileByID(playerinfo["op_gg_id"], curseason, REGION.EU, MATCH.SQUAD.size, MATCH.SQUAD.name)
 						.then((profile) => {
 							const stats = profile.getStats();
 							if (stats.matches_cnt >= 10) {
@@ -47,7 +48,7 @@ const opggapi = require("pubg.op.gg");
 							// console.error(err);
 						});
 					//SQUAD FPP rating
-					await api.getProfileByID(playerinfo["op_gg_id"], SEASON.curseason, REGION.EU, MATCH.SQUADFPP.size, MATCH.SQUADFPP.name)
+					await api.getProfileByID(playerinfo["op_gg_id"], curseason, REGION.EU, MATCH.SQUADFPP.size, MATCH.SQUADFPP.name)
 						.then((profile) => {
 							const stats = profile.getStats();
 							if (stats.matches_cnt >= 10) {

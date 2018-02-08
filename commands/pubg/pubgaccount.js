@@ -2,7 +2,7 @@ module.exports.run = async (bot, message, args) => {
 	//Const vars
 	const {PubgAPI, PubgAPIErrors, REGION, MATCH} = require('pubg-api-redis');
 	const pubgAPI = new PubgAPI({apikey: bot.settingscfg.pubgapikey});
-	var moment = require('moment');	
+	var moment = require('moment');
 	const mysql = require('mysql');
 	var https = require('https');
 
