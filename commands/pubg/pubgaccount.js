@@ -1,18 +1,9 @@
 module.exports.run = async (bot, message, args) => {
 	//Const vars
 	const {PubgAPI, PubgAPIErrors, REGION, MATCH} = require('pubg-api-redis');
-	const SEASON = {
-	  EA2017pre1: '2017-pre1',
-	  EA2017pre2: '2017-pre2',
-	  EA2017pre3: '2017-pre3',
-	  EA2017pre4: '2017-pre4',
-	  EA2017pre5: '2017-pre5',
-	  EA2017pre6: '2017-pre6',
-	  seas201801: '2018-01'
-	};
 	const pubgAPI = new PubgAPI({apikey: bot.settingscfg.pubgapikey});
 	var moment = require('moment');	
-	const mysql       = require('mysql');
+	const mysql = require('mysql');
 	var https = require('https');
 
 	if (bot.servers.get(message.guild.id).pubgRanksDistribute) {

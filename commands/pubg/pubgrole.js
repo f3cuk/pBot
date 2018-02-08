@@ -36,7 +36,7 @@ module.exports.run = async (bot, message, args) => {
 				var bestRating = 0;
 				
 				//SQUAD TPP rating
-				await api.getProfileByID(playerinfo["op_gg_id"], SEASON.RE2018sea1, REGION.EU, MATCH.SQUAD.size, MATCH.SQUAD.name)
+				await api.getProfileByID(playerinfo["op_gg_id"], SEASON.curseason, REGION.EU, MATCH.SQUAD.size, MATCH.SQUAD.name)
 					.then((profile) => {
 						const data = profile.getStats();
 						if (data.rating > bestRating) {
@@ -47,7 +47,7 @@ module.exports.run = async (bot, message, args) => {
 						console.error(err);
 					});
 				//SQUAD FPP rating
-				await api.getProfileByID(playerinfo["op_gg_id"], SEASON.RE2018sea1, REGION.EU, MATCH.SQUADFPP.size, MATCH.SQUADFPP.name)
+				await api.getProfileByID(playerinfo["op_gg_id"], SEASON.curseason, REGION.EU, MATCH.SQUADFPP.size, MATCH.SQUADFPP.name)
 					.then((profile) => {
 						const data = profile.getStats();
 						if (data.rating > bestRating) {
@@ -99,7 +99,7 @@ module.exports.run = async (bot, message, args) => {
 					var elosquadfpp = 1;
 
 					//SQUAD TPP rating
-					await api.getProfileByID(playerinfo["op_gg_id"], SEASON.RE2018sea1, REGION.EU, MATCH.SQUAD.size, MATCH.SQUAD.name)
+					await api.getProfileByID(playerinfo["op_gg_id"], SEASON.curseason, REGION.EU, MATCH.SQUAD.size, MATCH.SQUAD.name)
 						.then((profile) => {
 							const stats = profile.getStats();
 							if (stats.matches_cnt >= 10) {
@@ -112,7 +112,7 @@ module.exports.run = async (bot, message, args) => {
 							// console.error(err);
 						});
 					//SQUAD FPP rating
-					await api.getProfileByID(playerinfo["op_gg_id"], SEASON.RE2018sea1, REGION.EU, MATCH.SQUADFPP.size, MATCH.SQUADFPP.name)
+					await api.getProfileByID(playerinfo["op_gg_id"], SEASON.curseason, REGION.EU, MATCH.SQUADFPP.size, MATCH.SQUADFPP.name)
 						.then((profile) => {
 							const stats = profile.getStats();
 							if (stats.matches_cnt >= 10) {

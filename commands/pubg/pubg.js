@@ -2,14 +2,20 @@ module.exports.run = async (bot, message, args) => {
 	//Const variables.
 	const {PubgAPI, PubgAPIErrors, REGION, MATCH} = require('pubg-api-redis');
 	const SEASON = {
-	  EA2017pre1: '2017-pre1',
-	  EA2017pre2: '2017-pre2',
-	  EA2017pre3: '2017-pre3',
-	  EA2017pre4: '2017-pre4',
-	  EA2017pre5: '2017-pre5',
-	  EA2017pre6: '2017-pre6',
-	  seas201801: '2018-01'
+		EA2017pre1: '2017-pre1',
+		EA2017pre2: '2017-pre2',
+		EA2017pre3: '2017-pre3',
+		EA2017pre4: '2017-pre4',
+		EA2017pre5: '2017-pre5',
+		EA2017pre6: '2017-pre6',
+		seas201801: '2018-01',
+		seas201802: '2018-02',
+		seas201803: '2018-03',
+		seas201804: '2018-04',
+		seas201805: '2018-05',
+		seas201806: '2018-06'
 	};
+	const curseason = seas201802;
 	const pubgAPI = new PubgAPI({apikey: bot.settingscfg.pubgapikey});
 	const mysql       = require('mysql');
 
@@ -77,7 +83,7 @@ module.exports.run = async (bot, message, args) => {
 	    var hasStats = false;
 	    contentstats.forEach((stat, i) => {
 	    	if (!hasStats) {
-	    		if (stat.Region === finalRegion && stat.Match === finalMode && stat.Season === SEASON.seas201801) {
+	    		if (stat.Region === finalRegion && stat.Match === finalMode && stat.Season === SEASON.curseason) {
 	    			hasStats = true;
 	    		}
 	    	}
@@ -85,7 +91,7 @@ module.exports.run = async (bot, message, args) => {
 	    if (hasStats) {
 	    	const stats = profile.getStats({
 		      region: finalRegion,
-		      season: SEASON.seas201801,
+		      season: SEASON.curseason,
 		      match: finalMode
 		    });
 

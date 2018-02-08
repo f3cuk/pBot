@@ -34,7 +34,7 @@ const opggapi = require("pubg.op.gg");
 					
 					awaitmessage.edit(`${message.author}, I'm currently updating all the ranks for the ${rows.length} users in the server.\nUpdating: ${playerinfo.pubgname}`);
 					//SQUAD TPP rating
-					await api.getProfileByID(playerinfo["op_gg_id"], SEASON.RE2018sea1, REGION.EU, MATCH.SQUAD.size, MATCH.SQUAD.name)
+					await api.getProfileByID(playerinfo["op_gg_id"], SEASON.curseason, REGION.EU, MATCH.SQUAD.size, MATCH.SQUAD.name)
 						.then((profile) => {
 							const stats = profile.getStats();
 							if (stats.matches_cnt >= 10) {
@@ -47,7 +47,7 @@ const opggapi = require("pubg.op.gg");
 							// console.error(err);
 						});
 					//SQUAD FPP rating
-					await api.getProfileByID(playerinfo["op_gg_id"], SEASON.RE2018sea1, REGION.EU, MATCH.SQUADFPP.size, MATCH.SQUADFPP.name)
+					await api.getProfileByID(playerinfo["op_gg_id"], SEASON.curseason, REGION.EU, MATCH.SQUADFPP.size, MATCH.SQUADFPP.name)
 						.then((profile) => {
 							const stats = profile.getStats();
 							if (stats.matches_cnt >= 10) {
