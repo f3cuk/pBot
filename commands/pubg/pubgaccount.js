@@ -2,7 +2,7 @@ module.exports.run = async (bot, message, args) => {
 	//Const vars
 	const {PubgAPI, PubgAPIErrors, REGION, MATCH} = require('pubg-api-redis');
 	const pubgAPI = new PubgAPI({apikey: bot.settingscfg.pubgapikey});
-	var moment = require('moment');
+	var moment = require('moment');	
 	const mysql = require('mysql');
 	var https = require('https');
 
@@ -44,26 +44,31 @@ module.exports.run = async (bot, message, args) => {
 
 				pubgsettings.players.push(playerprops);
 			}
+
+			var myRequest = 'https://pubg.op.gg/user/' + args[0] + '?server=eu';
+
 			var options = {
-	          host: 'pubg.op.gg',
-	          port: 443,
-	          path: '/user/' + args[0] + '?server=eu',
-	          method: 'GET'
-	        };
-	        
-	        var req = https.request(options, function(res) {
-	          res.setEncoding('utf8');
-	          res.on('data', function (chunk) {
-	            if (chunk.indexOf('data-user_id') > -1) {
-	                if (typeof chunk === 'string') {
+				host: 'pubg.discordgaming.nl',
+				port: 443,
+				path: '/curl-load-page.php?url='+encodeURIComponent(myRequest),
+				method: 'GET'
+			};
+			
+			var req = https.request(options, function(res) {
 
-	                    var result = chunk.match(/data-user_id="(.*?)"/g).map(function (val) {
-	                        return val.replace(/data-user_id="/g,'').replace('"','');
-	                    });
-	                    var opggid = result[0];
-	                    console.log("I've fetched OPGGID: " + opggid);
+				res.setEncoding('utf8');
+				res.on('data', function (chunk) {
 
-	                    var con = mysql.createConnection({
+				if (chunk.indexOf('data-user_id') > -1) {
+					if (typeof chunk === 'string') {
+
+						var result = chunk.match(/data-user_id="(.*?)"/g).map(function (val) {
+							return val.replace(/data-user_id="/g,'').replace('"','');
+						});
+						var opggid = result[0];
+						console.log("I've fetched OPGGID: " + opggid);
+
+						var con = mysql.createConnection({
 							host: bot.settingscfg.mysqlHost,
 							user: bot.settingscfg.mysqlUser,
 							password: bot.settingscfg.mysqlPass,
@@ -84,14 +89,14 @@ module.exports.run = async (bot, message, args) => {
 								}
 							});
 						});
-	                }
-	            }
-	          });
-	        });
-	        req.on('error', function(e) {
-	          console.log('problem with request: ' + e.message);
-	        });
-	        req.end();
+					}
+				}
+			  });
+			});
+			req.on('error', function(e) {
+			  console.log('problem with request: ' + e.message);
+			});
+			req.end();
 
 			message.channel.send(`${message.author}, I've linked your PUBG account (${args[0]}) with this discord server. `);
 			fs.writeFile(filename, JSON.stringify(pubgsettings, null, 2), function (err) {
