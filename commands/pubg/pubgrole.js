@@ -4,6 +4,7 @@ module.exports.run = async (bot, message, args) => {
 	const api = new PubgAPI();
 	const mysql   = require('mysql');
 	const curseason = bot.settingscfg.curseason;
+	var https = require('https');
 
 	var enabled = true; //Developer enabled.
 	var con = mysql.createConnection({
