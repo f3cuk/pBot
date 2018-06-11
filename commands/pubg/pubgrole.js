@@ -54,48 +54,49 @@ module.exports.run = async (bot, message, args) => {
 						method: 'GET'
 					};
 
+					var bestelo = 1;
+
 					var req = https.request(options, function(res) {
-
-						var bestelo = res;
-
-						//Updating the player rank in the server.
-						//Removing the roles from the member first... :)
-						let guildMember = await message.guild.fetchMember(playertofind);
-						for(var attributename in pubgsettings["elo"]){
-							await guildMember.removeRole(pubgsettings["elo"][attributename]);
+						if(res && res > 1) {
+							var bestelo = res;
 						}
-						//Assinging the new role to the user.
-						if (bestelo < 1600) {
-							guildMember.addRole(pubgsettings["elo"]["unranked"]);
-						} else if (bestelo >= 1600 && bestelo < 2000) {
-							guildMember.addRole(pubgsettings["elo"]["1600rating"]);
-						} else if (bestelo >= 2000 && bestelo < 2400) {
-							guildMember.addRole(pubgsettings["elo"]["2000rating"]);
-						} else if (bestelo >= 2400 && bestelo < 2800) {
-							guildMember.addRole(pubgsettings["elo"]["2400rating"]);
-						} else if (bestelo >= 2800 && bestelo < 3200) {
-							guildMember.addRole(pubgsettings["elo"]["2800rating"]);
-						} else if (bestelo >= 3200 && bestelo < 3600) {
-							guildMember.addRole(pubgsettings["elo"]["3200rating"]);
-						} else if (bestelo >= 3600 && bestelo < 4000) {
-							guildMember.addRole(pubgsettings["elo"]["3600rating"]);
-						} else if (bestelo >= 4000) {
-							guildMember.addRole(pubgsettings["elo"]["4000rating"]);
-						}
-
-						//Ranked player or not.?
-						if (bestelo == 1) {
-							message.reply(`I've not assigned an elo role to ${guildMember}. Player has not ranked yet, 10+ games to get ranked`);
-						} else {
-							message.reply(`I've assigned the new elo role to ${guildMember}. ELO: ${bestelo}`);
-						}
-
 					});
 					req.on('error', function(e) {
 						console.log('problem with request: ' + e.message);
 						message.reply(e.message);
 					});
 					req.end();
+
+					let guildMember = await message.guild.fetchMember(playertofind);
+
+					for(var attributename in pubgsettings["elo"]){
+						await guildMember.removeRole(pubgsettings["elo"][attributename]);
+					}
+
+					if (bestelo < 1600) {
+						guildMember.addRole(pubgsettings["elo"]["unranked"]);
+					} else if (bestelo >= 1600 && bestelo < 2000) {
+						guildMember.addRole(pubgsettings["elo"]["1600rating"]);
+					} else if (bestelo >= 2000 && bestelo < 2400) {
+						guildMember.addRole(pubgsettings["elo"]["2000rating"]);
+					} else if (bestelo >= 2400 && bestelo < 2800) {
+						guildMember.addRole(pubgsettings["elo"]["2400rating"]);
+					} else if (bestelo >= 2800 && bestelo < 3200) {
+						guildMember.addRole(pubgsettings["elo"]["2800rating"]);
+					} else if (bestelo >= 3200 && bestelo < 3600) {
+						guildMember.addRole(pubgsettings["elo"]["3200rating"]);
+					} else if (bestelo >= 3600 && bestelo < 4000) {
+						guildMember.addRole(pubgsettings["elo"]["3600rating"]);
+					} else if (bestelo >= 4000) {
+						guildMember.addRole(pubgsettings["elo"]["4000rating"]);
+					}
+
+					//Ranked player or not.?
+					if (bestelo == 1) {
+						message.reply(`I've not assigned an elo role to ${guildMember}. Player has not ranked yet, 10+ games to get ranked`);
+					} else {
+						message.reply(`I've assigned the new elo role to ${guildMember}. ELO: ${bestelo}`);
+					}
 
 				}
 			});
