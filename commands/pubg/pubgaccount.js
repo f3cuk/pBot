@@ -45,59 +45,6 @@ module.exports.run = async (bot, message, args) => {
 				pubgsettings.players.push(playerprops);
 			}
 
-			var myRequest = 'https://pubg.op.gg/user/' + args[0] + '?server=eu';
-
-			var options = {
-				host: 'pubg.discordgaming.nl',
-				port: 443,
-				path: '/curl-load-page.php?url='+encodeURIComponent(myRequest),
-				method: 'GET'
-			};
-			
-			var req = https.request(options, function(res) {
-
-				res.setEncoding('utf8');
-				res.on('data', function (chunk) {
-
-				if (chunk.indexOf('data-user_id') > -1) {
-					if (typeof chunk === 'string') {
-
-						var result = chunk.match(/data-user_id="(.*?)"/g).map(function (val) {
-							return val.replace(/data-user_id="/g,'').replace('"','');
-						});
-						var opggid = result[0];
-						console.log("I've fetched OPGGID: " + opggid);
-
-						var con = mysql.createConnection({
-							host: bot.settingscfg.mysqlHost,
-							user: bot.settingscfg.mysqlUser,
-							password: bot.settingscfg.mysqlPass,
-							database: bot.settingscfg.mysqlData
-						});
-						con.connect(err => {
-							if (err) console.error(err);
-							con.query(`SELECT * FROM pubgranks WHERE discorduser = "${message.author.id}" AND discordserver = "${message.guild.id}"`, (err, rows) => {
-								if (err) return console.error(err);
-								if (rows.length >= 1) {
-									con.query(`UPDATE pubgranks SET pubgname = "${args[0]}", op_gg_id = "${opggid}" WHERE discorduser = "${message.author.id}" AND discordserver = "${message.guild.id}"`, (err, rows) => {
-										if (err) return console.error(err);
-									})
-								} else {
-									con.query(`INSERT INTO pubgranks (discordserver, discorduser, pubgname, op_gg_id) VALUES ('${message.guild.id}', '${message.author.id}', '${args[0]}', '${opggid}')`, (err, rows) => {
-										if (err) return console.error(err);
-									})
-								}
-							});
-						});
-					}
-				}
-			  });
-			});
-			req.on('error', function(e) {
-			  console.log('problem with request: ' + e.message);
-			});
-			req.end();
-
 			message.channel.send(`${message.author}, I've linked your PUBG account (${args[0]}) with this discord server. `);
 			fs.writeFile(filename, JSON.stringify(pubgsettings, null, 2), function (err) {
 				if (err) return console.error(err);
