@@ -1,7 +1,5 @@
 module.exports.run = async (bot, message, args) => {
 	//Const vars
-	const {PubgAPI, PubgAPIErrors, REGION, MATCH} = require('pubg-api-redis');
-	const pubgAPI = new PubgAPI({apikey: bot.settingscfg.pubgapikey});
 	var moment = require('moment');	
 	const mysql = require('mysql');
 	var https = require('https');
@@ -16,10 +14,10 @@ module.exports.run = async (bot, message, args) => {
 			var isLinked = true;
 			var playerprops;
 			var playerid;
-			if (pubgsettings.players.length < 1) {
-				//If there are no players linked in the server yet.. Defaulting to false.
+
+			if (pubgsettings.players.length < 1)
 				isLinked = false;
-			} 
+
 			if (isLinked) {
 				isLinked = false; //Setting value to false as we don't know if the player is in the serverlist yet.
 				pubgsettings.players.forEach((player, i) => {
@@ -30,6 +28,7 @@ module.exports.run = async (bot, message, args) => {
 					}
 				});
 			} 
+
 			if (isLinked) {
 				playerprops.player.pubgname = args[0];
 				pubgsettings.players[playerid] = playerprops;
@@ -45,7 +44,30 @@ module.exports.run = async (bot, message, args) => {
 				pubgsettings.players.push(playerprops);
 			}
 
-			message.channel.send(`${message.author}, I've linked your PUBG account (${args[0]}) with this discord server. `);
+			var con = mysql.createConnection({
+				host: bot.settingscfg.mysqlHost,
+				user: bot.settingscfg.mysqlUser,
+				password: bot.settingscfg.mysqlPass,
+				database: bot.settingscfg.mysqlData
+			});
+			
+			con.connect(err => {
+				if (err) console.error(err);
+				con.query(`SELECT * FROM pubgranks WHERE discorduser = "${message.author.id}" AND discordserver = "${message.guild.id}"`, (err, rows) => {
+					if (err) return console.error(err);
+					if (rows.length >= 1) {
+						con.query(`UPDATE pubgranks SET pubgname = "${args[0]}", api_id = "" WHERE discorduser = "${message.author.id}" AND discordserver = "${message.guild.id}"`, (err, rows) => {
+							if (err) return console.error(err);
+						})
+					} else {
+						con.query(`INSERT INTO pubgranks (discordserver, discorduser, pubgname) VALUES ('${message.guild.id}', '${message.author.id}', '${args[0]}')`, (err, rows) => {
+							if (err) return console.error(err);
+						})
+					}
+				});
+			});
+
+			message.channel.send(`${message.author}, I've linked your PUBG account (${args[0]}) with this discord server.`);
 			fs.writeFile(filename, JSON.stringify(pubgsettings, null, 2), function (err) {
 				if (err) return console.error(err);
 			});

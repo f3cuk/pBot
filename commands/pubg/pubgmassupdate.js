@@ -1,11 +1,7 @@
 module.exports.run = async (bot, message, args) => {
 const opggapi = require("pubg.op.gg");
-	const {PubgAPI, PubgAPIErrors, REGION, SEASON, MATCH} = require('pubg.op.gg');
-	const api = new PubgAPI();
 	const mysql = require('mysql');
-	const curseason = bot.settingscfg.curseason;
-
-	var enabled = true; //Developer enabled.
+	var enabled = true;
 	var con = mysql.createConnection({
 		host: bot.settingscfg.mysqlHost,
 		user: bot.settingscfg.mysqlUser,
@@ -21,6 +17,9 @@ const opggapi = require("pubg.op.gg");
 	var filename = `/var/www/vhosts/bot.discordgaming.nl/home/pBot/servers/pubg/${message.guild.id}.json`;
 	var pubgsettings = require(filename);
 	if (pubgsettings.ranksystem === "elo") {
+
+		/*
+
 			con.query(`SELECT * FROM pubgranks WHERE discordserver = ${message.guild.id}`, async (err, rows) => {
 			
 			let awaitmessage = await message.reply(`I'm currently updating all the ranks for the ${rows.length} users in the server.`);
@@ -112,6 +111,8 @@ const opggapi = require("pubg.op.gg");
 
 			});
 		});
+
+		*/
 	}
 }
 
